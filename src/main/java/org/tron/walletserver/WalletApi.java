@@ -95,8 +95,9 @@ public class WalletApi {
   private byte[] address = null;
   private static byte addressPreFixByte = CommonConstant.ADD_PRE_FIX_BYTE_TESTNET;
   private static int rpcVersion = 0;
+  private byte[] passwd = null;
 
-  private static GrpcClient rpcCli = init();
+  public static GrpcClient rpcCli = init();
 
 //  static {
 //    new Timer().schedule(new TimerTask() {
@@ -190,6 +191,7 @@ public class WalletApi {
     ECKey ecKey = ECKey.fromPrivate(priKey);
     this.walletFile = Wallet.createStandard(password, ecKey);
     this.address = ecKey.getAddress();
+    this.passwd = password;
   }
 
   public boolean isLoginState() {
@@ -348,8 +350,8 @@ public class WalletApi {
     return rpcCli.queryAccountById(accountId);
   }
 
-  private Transaction signTransaction(Transaction transaction)
-      throws CipherException, IOException, CancelException {
+  private Transaction signTransactionbak(Transaction transaction)
+          throws CipherException, IOException, CancelException {
     if (transaction.getRawData().getTimestamp() == 0) {
       transaction = TransactionUtils.setTimestamp(transaction);
     }
@@ -372,6 +374,19 @@ public class WalletApi {
     char[] password = Utils.inputPassword(false);
     byte[] passwd = org.tron.keystore.StringUtils.char2Byte(password);
     org.tron.keystore.StringUtils.clear(password);
+    System.out.println(
+            "txid = " + ByteArray.toHexString(Sha256Hash.hash(transaction.getRawData().toByteArray())));
+    transaction = TransactionUtils.sign(transaction, this.getEcKey(passwd));
+    org.tron.keystore.StringUtils.clear(passwd);
+    return transaction;
+  }
+
+  private Transaction signTransaction(Transaction transaction)
+      throws CipherException, IOException, CancelException {
+    if (transaction.getRawData().getTimestamp() == 0) {
+      transaction = TransactionUtils.setTimestamp(transaction);
+    }
+
     System.out.println(
         "txid = " + ByteArray.toHexString(Sha256Hash.hash(transaction.getRawData().toByteArray())));
     transaction = TransactionUtils.sign(transaction, this.getEcKey(passwd));

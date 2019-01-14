@@ -1,10 +1,11 @@
-group 'Tron'
+group 'pro.chain'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'com.google.protobuf'
-apply plugin: 'com.github.johnrengelman.shadow'
+//apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'application'
+apply plugin: 'maven'
 
 sourceCompatibility = 1.8
 targetCompatibility = JavaVersion.VERSION_1_8
@@ -21,6 +22,16 @@ repositories {
     mavenLocal()
     mavenCentral()
 }
+
+
+//install {
+//    repositories.mavenInstaller {
+//        pom.version = "1.0"
+//        pom.artifactId = "my-tron-wallet"
+//        pom.groupId = "pro.chain"
+//    }
+//}
+
 
 sourceSets {
     main {
@@ -117,10 +128,29 @@ run {
     standardInput = System.in
     mainClassName = 'org.tron.walletcli.Client'
 }
+//def localMavenRepo = 'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath
+//uploadArchives {
+//    repositories {
+//        mavenDeployer {
+//            repository(url: localMavenRepo)
+//
+//            //构造项目的Pom文件
+////            pom.project {
+////                name = 'my-wallet'
+////                packaging = 'jar'
+////                description = 'description'
+////            }
+//            pom.version = "1.0-SNAPSHOT"
+//            pom.artifactId = "my-wallet"
+//            pom.groupId = "pro.chain"
+//        }
+//
+//    }
+//}
 
 
-shadowJar {
-    baseName = 'wallet-cli'
-    classifier = null
-    version = null
-}
+//shadowJar {
+//    baseName = 'wallet-cli'
+//    classifier = null
+//    version = null
+//}
