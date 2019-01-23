@@ -1035,7 +1035,7 @@ public class WalletApi {
 
   }
 
-  private FreezeBalanceContract createFreezeBalanceContract(long frozen_balance,
+  public FreezeBalanceContract createFreezeBalanceContract(long frozen_balance,
       long frozen_duration, int resourceCode, String receiverAddress) {
     byte[] address = getAddress();
     Contract.FreezeBalanceContract.Builder builder = Contract.FreezeBalanceContract.newBuilder();
@@ -1051,7 +1051,7 @@ public class WalletApi {
     return builder.build();
   }
 
-  private BuyStorageContract createBuyStorageContract(long quantity) {
+  public BuyStorageContract createBuyStorageContract(long quantity) {
     byte[] address = getAddress();
     Contract.BuyStorageContract.Builder builder = Contract.BuyStorageContract.newBuilder();
     ByteString byteAddress = ByteString.copyFrom(address);
@@ -1060,7 +1060,7 @@ public class WalletApi {
     return builder.build();
   }
 
-  private BuyStorageBytesContract createBuyStorageBytesContract(long bytes) {
+  public BuyStorageBytesContract createBuyStorageBytesContract(long bytes) {
     byte[] address = getAddress();
     Contract.BuyStorageBytesContract.Builder builder = Contract.BuyStorageBytesContract
         .newBuilder();
@@ -1070,7 +1070,7 @@ public class WalletApi {
     return builder.build();
   }
 
-  private SellStorageContract createSellStorageContract(long storageBytes) {
+  public SellStorageContract createSellStorageContract(long storageBytes) {
     byte[] address = getAddress();
     Contract.SellStorageContract.Builder builder = Contract.SellStorageContract.newBuilder();
     ByteString byteAddress = ByteString.copyFrom(address);
@@ -1093,7 +1093,7 @@ public class WalletApi {
   }
 
 
-  private UnfreezeBalanceContract createUnfreezeBalanceContract(int resourceCode,
+  public UnfreezeBalanceContract createUnfreezeBalanceContract(int resourceCode,
       String receiverAddress) {
     byte[] address = getAddress();
     Contract.UnfreezeBalanceContract.Builder builder = Contract.UnfreezeBalanceContract
@@ -1121,7 +1121,7 @@ public class WalletApi {
     }
   }
 
-  private UnfreezeAssetContract createUnfreezeAssetContract() {
+  public UnfreezeAssetContract createUnfreezeAssetContract() {
     byte[] address = getAddress();
     Contract.UnfreezeAssetContract.Builder builder = Contract.UnfreezeAssetContract
         .newBuilder();
@@ -1141,7 +1141,7 @@ public class WalletApi {
     }
   }
 
-  private WithdrawBalanceContract createWithdrawBalanceContract() {
+  public WithdrawBalanceContract createWithdrawBalanceContract() {
     byte[] address = getAddress();
     Contract.WithdrawBalanceContract.Builder builder = Contract.WithdrawBalanceContract
         .newBuilder();
